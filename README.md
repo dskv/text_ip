@@ -1,4 +1,4 @@
-sms_ip
+text_ip
 ======
 
 Send a sms/text message using google voice to your phone when device (raspberry pi) boots and is assigned an ip address.
@@ -9,7 +9,7 @@ To have the scrypt run automatically on boot add following command:
 	sudo nano /etc/rc.local
 	
 edit the rc.local file
-#--------------------------------------------------------------------
+
 \#!/bin/sh -e
 #
 # rc.local
@@ -30,7 +30,7 @@ if [ "$_IP" ]; then
   python /home/pi/Desktop/sms_ip/get_ip.py 	#<--ADD THIS LINE
 fi
 exit 0
-#--------------------------------------------------------------------
+
 
 
 Also dont forget to edit the 'user_info.txt' file with your personal information

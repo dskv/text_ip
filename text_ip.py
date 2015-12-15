@@ -12,6 +12,7 @@ import re
 import os
 import subprocess
 import urllib
+import sys
 
 
 v = Voice()
@@ -66,18 +67,26 @@ def get_external_ip():
 
 def send_text(text):
 	# Reads a file 'user_info.txt' that you create with your login information. Of course you can ass your information directly here.
-	# EXAMPLE user_info.txt file:
-	# 1. email@gmail.com
-	# 2. YOUR_PASSWORD
-	# 3. 01234567890
-	user_info = open('/home/pi/Desktop/text_ip/user_info.txt', 'r')
+	# example user_info.txt file:
+	# USERID@gmail.com
+	# YOUR_PASSWORD
+	# 01234567890
+	try:	#do a bit of error handling for people that dont read the README files
+		user_info = open('/home/pi/Desktop/text_ip/user_info.txt', 'r')
+	except:
+		print 'No user_info.txt\n'
+		print 'Create user_info.txt file and add the user info:'
+		print 'USERID@gmail.com'
+		print 'YOURPASSWORD'
+		print 'TELEPHONE#\n'
+		sys.exit('Unable to get loging information. Scrypt exited')
+		
 	user_name = user_info.readline() #read line one
 	user_pass = user_info.readline() #read line two
 	user_tele = user_info.readline() #read line three
 	user_info.close()
 	v.login(user_name, user_pass)
-	phoneNumber = user_tele
-	v.send_sms(phoneNumber, text)
+	v.send_sms(user_tele, text)
 	v.logout()
 
 if __name__ == "__main__": main()
